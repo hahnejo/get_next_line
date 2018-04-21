@@ -10,18 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifdef GET_NEXT_LINE
-# define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include "./src/libft/libft.h"
+#include "src/libft/libft.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <string.h>
+#include <stdio.h>
 
-# define BUFF_SIZE 8
+# define BUFF_SIZE 10
 
 int		get_next_line	(const int fd, char **line);
-int		get_line		(int fd, char **arr, char **line);
+int		get_line		(const int fd, char **arr, char **line);
 
 #endif

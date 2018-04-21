@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 
-int		get_line(const int fd, const char **arr, char **line)
+int		get_line(const int fd, char **arr, char **line)
 {
-	const char	*tmp;
-	size_t		i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	while (arr[fd][i] != '\n' && arr[fd][i] != '\0')
@@ -27,7 +27,7 @@ int		get_line(const int fd, const char **arr, char **line)
 		ft_strdel(&arr[fd]);
 		arr[fd] = tmp;
 		if (arr[fd][0] == '\0')
-			ft_strdel(&data[fd]);
+			ft_strdel(&arr[fd]);
 	}
 	else if (arr[fd][i] == '\0')
 	{
@@ -39,16 +39,16 @@ int		get_line(const int fd, const char **arr, char **line)
 
 int		get_next_line(const int fd, char **line)
 {
-	int			res;
+	int			ret;
 	char		buf[BUFF_SIZE + 1];
 	char		*tmp;
 	static char	*arr[1023];
 
-	if (!line || fd < 0 || !buf)
+	if (!line || fd < 0 || BUFF_SIZE < 1)
 		return (-1);
-	while (1 && (res = read(fd, buf, BUFF_SIZE) > 0))
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		buf[res] = '\0';
+		buf[ret] = '\0';
 		if (arr[fd] == NULL)
 			arr[fd] = ft_strnew(1);
 		tmp = ft_strjoin(arr[fd], buf);
@@ -57,9 +57,9 @@ int		get_next_line(const int fd, char **line)
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	if (res < 0)
+	if (ret < 0)
 		return (-1);
-	else if (res == 0 && arr[fd] == NULL)
+	else if (ret == 0 && arr[fd] == NULL)
 		return (0);
 	return (get_line(fd, arr, line));
 }
@@ -80,44 +80,3 @@ int		main(int ac, char **av)
 	}
 	return (0);
 }
-/*
-int		read_buf(int fd, char *buf, size_t *nbyte)
-{
-	char	temp[BUFF_SIZE + 1];
-	char	*temp2;
-
-	*nbyte = read(fd, temp, BUFF_SIZE);
-	temp[*nbyte] = '\0';
-	temp2 = buf;
-	if (!(buf = ft_strjoin(buf, temp)))
-		return (NULL);
-	free(&temp2);
-	return (buf);
-}
-
-int		get_next_line(int fd, char **line)
-{
-	int		ans;
-	char	*str;
-	char	*buf;
-	char	*temp;
-
-	ans = 1;
-	if (!line || fd < 0 || (!buf))
-		return (-1);
-	while (1)
-	{
-		if ((str = ft_strchr(buf, '\n')) != NULL)
-		{
-			*str = '\0';
-			if (!(*line = ft_strcpy(temp, buf)))
-				return (-1);
-			ft_memmove(temp, str + 1, ft_strlen(str + 1) + 1);
-			return (1);
-		}
-		if (!(buf = read_buf(fd, buf, nbyte)))
-
-	}
-	ft_bzero(&str, strlen(str));
-}
-*/
