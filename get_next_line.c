@@ -12,6 +12,14 @@
 
 #include "get_next_line.h"
 
+/*
+** fd as y and i as x.
+** until it reaches new line or null, keep going.
+** when it becomes new line, use strsub to store one sentence to line.
+** save that string by strdup with the null's space.
+** arr is now tmp.
+*/
+
 int		get_line(const int fd, char **arr, char **line)
 {
 	char	*tmp;
@@ -62,21 +70,4 @@ int		get_next_line(const int fd, char **line)
 	else if (ret == 0 && arr[fd] == NULL)
 		return (0);
 	return (get_line(fd, arr, line));
-}
-
-int		main(int ac, char **av)
-{
-	if (ac != 2)
-		return (0); 
-
-	char	*line = NULL;
-	int		fd = open(av[1], O_RDONLY);
-
-	while (get_next_line(fd, &line) > 0)
-	{
-		printf("%s\n", line);
-		free(line);
-		line = NULL;
-	}
-	return (0);
 }
