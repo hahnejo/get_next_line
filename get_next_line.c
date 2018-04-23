@@ -66,7 +66,7 @@ int		get_next_line(const int fd, char **line)
 		if (arr[fd] == NULL)
 			arr[fd] = ft_strnew(1);
 		tmp = ft_strjoin(arr[fd], buf);
-		ft_strdel(&arr[fd]);
+		free(arr[fd]);
 		arr[fd] = tmp;
 		if (ft_strchr(buf, '\n'))
 			break ;
