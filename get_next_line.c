@@ -47,7 +47,7 @@ int		get_line(const int fd, char **arr, char **line)
 
 /*
 ** read's return value is in ret. (Total number of char read)
-** create a string so that buf can be in it.
+** creating arr to store buf into tmp.
 ** strdel contains free.
 */
 
@@ -66,7 +66,7 @@ int		get_next_line(const int fd, char **line)
 		if (arr[fd] == NULL)
 			arr[fd] = ft_strnew(1);
 		tmp = ft_strjoin(arr[fd], buf);
-		free(arr[fd]);
+		ft_strdel(&arr[fd]);
 		arr[fd] = tmp;
 		if (ft_strchr(buf, '\n'))
 			break ;
