@@ -45,6 +45,12 @@ int		get_line(const int fd, char **arr, char **line)
 	return (1);
 }
 
+/*
+** read's return value is in ret. (Total number of char read)
+** create a string so that buf can be in it.
+** strdel contains free.
+*/
+
 int		get_next_line(const int fd, char **line)
 {
 	int			ret;
