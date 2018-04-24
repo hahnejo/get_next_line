@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   gnl_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hjo <hjo@student.42.us.org>                +#+  +:+       +#+        */
+/*   By: jukim <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/10 19:41:40 by hjo               #+#    #+#             */
-/*   Updated: 2018/03/10 19:41:43 by hjo              ###   ########.fr       */
+/*   Created: 2018/03/27 23:55:18 by jukim             #+#    #+#             */
+/*   Updated: 2018/03/29 23:15:28 by jukim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+int	main(int ac, char **av)
 {
-	int i;
+	if (ac != 2)
+		return (0); 
 
-	i = 0;
-	while (src[i] != '\0')
+	char	*line = NULL;
+	int		fd = open(av[1], O_RDONLY);
+
+	while (get_next_line(fd, &line) > 0)
 	{
-		dst[i] = src[i];
-		i++;
+		printf("%s\n", line);
+		free(line);
+		line = NULL;
 	}
-	dst[i] = '\0';
-	return (dst);
+	return (0);
 }
