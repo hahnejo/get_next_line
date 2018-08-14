@@ -10,15 +10,15 @@ all: $(NAME)
 $(NAME): $(SRC)
 	cd src/libft && make -f Makefile
 	mv src/libft/libft.a src
-	$(CC) -o $(NAME) $(CFLAGS) $(SRC) libft.a -I $(INCL)
+	$(CC) -o $(NAME) $(CFLAGS) $(SRC) ./src/libft.a -I $(INCL)
 
 clean:
-	cd libft && make clean
+	cd ./src/libft && make clean
 
 fclean:
-	cd libft && make fclean
+	cd ./src/libft && make fclean
 	rm -rf $(NAME)
-	rm -rf libft.all
+	rm -rf libft.a
 
 re: fclean $(NAME)
 
